@@ -38,3 +38,5 @@ This application is designed to display all the books available for sale on the 
 ![image](https://github.com/user-attachments/assets/d7b7debf-dbc4-46b1-a0ce-117121f84a3e)
 
 This structure ensures clear navigation and role-specific functionalities for an efficient user experience.
+
+![image](https://github.com/user-attachments/assets/4f392976-0bbb-47ea-ab96-7c956b08599d)
