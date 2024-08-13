@@ -12,8 +12,8 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add the custom configuration files
-builder.Configuration.AddJsonFile("appsettings.aoubook.json", optional: false, reloadOnChange: true)
-                     .AddJsonFile($"appsettings.aoubook.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+//builder.Configuration.AddJsonFile("appsettings.aoubook.json", optional: false, reloadOnChange: true)
+//                     .AddJsonFile($"appsettings.aoubook.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -49,6 +49,11 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+
+using var scope = app.Services.CreateScope();
+var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+dataContext.Database.Migrate();
+
 
 app.MapControllerRoute(
     name: "default",

@@ -79,24 +79,21 @@ namespace AOUBook.Areas.Admin.Controllers
             }
             return View();
         }
-
-        [HttpPost]
-        public async Task <IActionResult> Edit(int? id)
+        
+        public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var endpoint = _configuration.GetSection("AppSettings:ApiUrl").Value;
-            var response = await _httpClient.GetAsync($"{endpoint}/api/Category/{id}");
-            if (response.IsSuccessStatusCode)
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+            if (categoryFromDb == null)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var category = JsonConvert.DeserializeObject<Category>(content);
-                return View(category);
+                return NotFound();
             }
-            return NotFound();
+            return View(categoryFromDb);
         }
+
         [HttpPost]
         public async Task <IActionResult> Edit(Category obj)
         {
@@ -126,8 +123,7 @@ namespace AOUBook.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task <IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
             {
@@ -136,16 +132,13 @@ namespace AOUBook.Areas.Admin.Controllers
 
             Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
 
-            var endpoint = _configuration.GetSection("AppSettings:ApiUrl").Value;
-            var response = await _httpClient.GetAsync($"{endpoint}/api/Category/{id}");
-            if (response.IsSuccessStatusCode)
+            if (categoryFromDb == null)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var category = JsonConvert.DeserializeObject<Category>(content);
-                return View(category);
+                return NotFound();
             }
-            return NotFound();
+            return View(categoryFromDb);
         }
+
         [HttpPost, ActionName("Delete")]
         public async Task <IActionResult> DeletePOST(int? id)
         {

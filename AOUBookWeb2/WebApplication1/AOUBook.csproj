@@ -35,7 +35,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\AOUBook.Api\AOUBook.Api.csproj" />
 		<ProjectReference Include="..\WebApplication1.DataAccess\AOUBook.DataAccess.csproj" />
 		<ProjectReference Include="..\WebApplication1.Models\AOUBook.Models.csproj" />
 		<ProjectReference Include="..\WebApplication1.Utility\AOUBook.Utility.csproj" />

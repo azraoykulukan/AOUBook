@@ -33,5 +33,5 @@ RUN dotnet publish "./AOUBook.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ./WebApplication1/wwwroot ./wwwroot
+COPY WebApplication1/wwwroot /app/wwwroot
 ENTRYPOINT ["dotnet", "AOUBook.dll"]

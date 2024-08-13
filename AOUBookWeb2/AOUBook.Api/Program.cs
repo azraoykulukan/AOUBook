@@ -41,12 +41,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//using var scope = app.Services.CreateScope();
-//var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-//dataContext.Database.Migrate();
+using var scope = app.Services.CreateScope();
+var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+dataContext.Database.Migrate();
 
 app.UseStaticFiles();
-
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
