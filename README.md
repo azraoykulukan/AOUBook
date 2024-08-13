@@ -25,3 +25,4 @@ This application is designed to display all the books available for sale on the 
 * **Login:** Access the platform with registered credentials.
 
 This structure ensures clear navigation and role-specific functionalities for an efficient user experience.
+![image](https://github.com/user-attachments/assets/6040c306-1540-485a-9f5f-e49ad576e9a2)
