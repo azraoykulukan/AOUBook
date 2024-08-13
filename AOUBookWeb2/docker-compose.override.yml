@@ -1,0 +1,36 @@
+services:
+  aoubook-db:
+    container_name: aoubook-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Staj2024"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - '1453:1433'
+
+  aoubook.api:
+    container_name: aoubook.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:IdentityConnection=Server=localhost, 1444;Database=AouApi;User Id=sa;Password=Azra12345;TrustServerCertificate=true;"
+    ports:
+      - "8081:8080"
+    depends_on:
+      - aoubook-db
+
+  aoubook:
+    container_name: aoubook
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "AppSettings:ApiUrl=http://aoubook.api:8080"
+      - "ConnectionStrings:IdentityConnection=Server=localhost, 1444;Database=AouApi;User Id=sa;Password=Azra12345;TrustServerCertificate=true;"
+    ports:
+      - "8082:8080"
+    depends_on:
+      - aoubook-db
+      - aoubook.api
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ./AOUBook/wwwroot:/app/wwwroot

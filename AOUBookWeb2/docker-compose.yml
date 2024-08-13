@@ -1,0 +1,16 @@
+services:
+  aoubook-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  aoubook:
+    image: ${DOCKER_REGISTRY-}aoubook
+    build:
+      context: .
+      dockerfile: WebApplication1/Dockerfile
+
+  aoubook.api:
+    image: ${DOCKER_REGISTRY-}aoubookapi
+    build:
+      context: .
+      dockerfile: AOUBook.Api/Dockerfile
+
